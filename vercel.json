@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/daily/index.html" },
+    { "source": "/daily", "destination": "/daily/index.html" },
+    { "source": "/daily/", "destination": "/daily/index.html" }
+  ]
+}
