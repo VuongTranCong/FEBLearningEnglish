@@ -39,12 +39,12 @@
       '  <h2 class="auth-title">Đăng nhập</h2>',
       '  <p class="auth-hint">Nhập tài khoản và mật khẩu để tiếp tục.</p>',
       '  <form id="auth-form" class="auth-form">',
-      '    <label for="auth-username">Tài khoản</label>',
+      '    <label for="auth-username">Tài khoản (Nhập: admin)</label>',
       '    <input type="text" id="auth-username" name="username" autocomplete="username" required autofocus>',
-      '    <label for="auth-password">Mật khẩu (admin)</label>',
+      '    <label for="auth-password">Mật khẩu (Nhập: 123)</label>',
       '    <input type="password" id="auth-password" name="password" autocomplete="current-password" required>',
       '    <p id="auth-error" class="auth-error" style="display:none;"></p>',
-      '    <button type="submit" class="auth-submit">Đăng nhập (123)</button>',
+      '    <button type="submit" class="auth-submit">Đăng nhập</button>',
       '  </form>',
       '</div>'
     ].join('');

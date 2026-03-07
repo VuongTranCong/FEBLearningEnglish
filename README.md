@@ -6,7 +6,7 @@
 npx --yes serve .
 ```
 
-Then open **http://localhost:3000** (main) or **http://localhost:3000/daily/** (daily plan).
+Then open **http://localhost:3000** (daily plan – default page).
 
 ## Where files load from
 
