@@ -8,6 +8,6 @@
 window.AUTH_CONFIG = {
   enabled: true,
   users: [
-    { username: 'admin', password: 'changeme' }
+    { username: 'admin', password: '123' }
   ]
 };

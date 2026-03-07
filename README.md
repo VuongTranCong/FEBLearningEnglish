@@ -21,4 +21,4 @@ Edit **`daily/js/auth-config.js`**:
 - **Disable login** (allow everyone): set `enabled: false`.
 - **Change password**: set `users: [{ username: 'youruser', password: 'yourpass' }]`.
 
-Default is one user `admin` / `changeme`. Login is session-based (logout or close tab to sign out). This is client-side only—for light access control, not strong security.
+Default is one user `admin` / `123`. Login is session-based (logout or close tab to sign out). This is client-side only—for light access control, not strong security.

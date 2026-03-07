@@ -41,10 +41,10 @@
       '  <form id="auth-form" class="auth-form">',
       '    <label for="auth-username">Tài khoản</label>',
       '    <input type="text" id="auth-username" name="username" autocomplete="username" required autofocus>',
-      '    <label for="auth-password">Mật khẩu</label>',
+      '    <label for="auth-password">Mật khẩu (admin)</label>',
       '    <input type="password" id="auth-password" name="password" autocomplete="current-password" required>',
       '    <p id="auth-error" class="auth-error" style="display:none;"></p>',
-      '    <button type="submit" class="auth-submit">Đăng nhập</button>',
+      '    <button type="submit" class="auth-submit">Đăng nhập (123)</button>',
       '  </form>',
       '</div>'
     ].join('');
