@@ -54,6 +54,23 @@ header p { opacity: 0.9; font-size: 0.95rem; }
   min-width: 200px;
 }
 
+.mark-done-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 2px solid #10b981;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mark-done-btn:hover { background: #d1fae5; }
+.mark-done-btn.is-done {
+  background: #d1fae5;
+  border-color: #059669;
+  color: #047857;
+}
+
 .container { width: 100%; max-width: 100%; margin: 0; padding: 1.5rem; box-sizing: border-box; }
 
 .day-badge {
