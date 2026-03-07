@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Học tiếng Anh mỗi ngày – Hướng dẫn phụ huynh & bé</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <h1>Học tiếng Anh – Kế hoạch mỗi ngày</h1>
+  <p>Mỗi ngày một chút: video, bài hát, thẻ từ & hoạt động</p>
+  <a class="back-link" href="../index.html">← Quay lại tất cả tháng</a>
+</header>
+
+<div class="day-picker-wrap">
+  <label for="day-select">Chọn ngày học:</label>
+  <select id="day-select" aria-label="Chọn ngày"></select>
+</div>
+
+<div class="container" id="day-content">
+  <span class="day-badge" id="day-badge">Tháng 1 · Ngày 1</span>
+  <h2 class="day-title" id="day-title">Learn Verbs #1</h2>
+
+  <section class="guides-section" aria-label="Hướng dẫn cho phụ huynh và bé">
+    <div class="guide-box">
+      <h3>👨‍👩‍👧 Hướng dẫn cho phụ huynh</h3>
+      <p id="parent-guide-text">Đang tải…</p>
+    </div>
+    <div class="guide-box kid">
+      <h3>👧 Hướng dẫn cho bé</h3>
+      <p id="kid-guide-text">Đang tải…</p>
+    </div>
+  </section>
+
+  <h3 class="section-title">Video</h3>
+  <div class="grid" id="day-videos"></div>
+
+  <h3 class="section-title">Bài hát (MP3)</h3>
+  <div class="grid" id="day-songs"></div>
+
+  <h3 class="section-title">Thẻ từ (PDF)</h3>
+  <div class="pdf-grid" id="day-flashcards"></div>
+
+  <div class="activity-box" id="day-activity" style="display: none;">
+    <h3 class="section-title">Hoạt động hôm nay</h3>
+    <p class="activity-name"></p>
+    <div class="activity-video-wrap" style="display: none;">
+      <video controls preload="metadata"></video>
+    </div>
+    <a class="activity-pdf" href="#" target="_blank">📄 Tải PDF hoạt động</a>
+  </div>
+
+  <div id="day-games" style="display: none;">
+    <h3 class="section-title">Trò chơi</h3>
+    <div class="games-list"></div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/guides.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/render.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
