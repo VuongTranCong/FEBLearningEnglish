@@ -6,6 +6,7 @@
   <title>Học tiếng Anh mỗi ngày – Hướng dẫn phụ huynh & bé</title>
   <base href="/daily/">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="quiz/quiz.css">
 </head>
 <body>
 
@@ -43,6 +44,8 @@
   <h3 class="section-title">Thẻ từ (PDF)</h3>
   <div class="pdf-grid" id="day-flashcards"></div>
 
+  <div id="quiz-wrap" class="quiz-wrap no-words" aria-label="Quiz đọc từ"></div>
+
   <div class="activity-box" id="day-activity" style="display: none;">
     <h3 class="section-title">Hoạt động hôm nay</h3>
     <p class="activity-name"></p>
@@ -63,9 +66,11 @@
 <script src="js/drive-map.js"></script>
 <script src="js/config.js"></script>
 <script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script src="quiz/quiz.js"></script>
 <script src="js/progress.js"></script>
 <script src="js/guides.js"></script>
-<script src="js/utils.js"></script>
 <script src="js/render.js"></script>
 <script src="js/main.js"></script>
 

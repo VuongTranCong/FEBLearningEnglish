@@ -35,6 +35,7 @@
     if (typeof Progress !== 'undefined') Progress.setLastDay(currentDayIndex);
     renderDay(currentDayIndex);
     updateMarkDoneButton();
+    if (typeof window.Quiz !== 'undefined') window.Quiz.updateDay(currentDayIndex);
   }
 
   function updateMarkDoneButton() {
@@ -60,6 +61,7 @@
         Progress.setLastDay(currentDayIndex);
         renderDay(currentDayIndex);
         updateMarkDoneButton();
+        if (typeof window.Quiz !== 'undefined') window.Quiz.updateDay(currentDayIndex);
       }
     }
   }
@@ -76,6 +78,7 @@
     currentDayIndex = startIndex;
     if (typeof Progress !== 'undefined') Progress.setLastDay(currentDayIndex);
     renderDay(currentDayIndex);
+    if (typeof window.Quiz !== 'undefined') window.Quiz.updateDay(currentDayIndex);
     select.addEventListener('change', onDayChange);
 
     var wrap = document.querySelector('.day-picker-wrap');

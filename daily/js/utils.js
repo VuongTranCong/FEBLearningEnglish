@@ -34,3 +34,14 @@ function getMediaUrl(basePath, relativePath) {
 function isDrivePreviewUrl(url) {
   return url && url.indexOf('drive.google.com/file/d/') !== -1 && url.indexOf('/preview') !== -1;
 }
+
+/** Raw PDF URL for loading bytes (e.g. in PDF.js). Drive = same-origin proxy /api/pdf?id= to avoid CORS; local = fullUrl. */
+function getPdfDownloadUrl(basePath, relativePath) {
+  if (!relativePath || !/\.pdf$/i.test(relativePath)) return '';
+  if (typeof CONFIG !== 'undefined' && CONFIG.useGoogleDrive && typeof DRIVE_FILE_IDS !== 'undefined' && DRIVE_FILE_IDS[relativePath]) {
+    var id = DRIVE_FILE_IDS[relativePath];
+    var base = typeof window !== 'undefined' && window.location && window.location.origin ? window.location.origin : '';
+    return base + '/api/pdf?id=' + encodeURIComponent(id);
+  }
+  return fullUrl(basePath, relativePath);
+}
