@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "node server.js",
+    "serve": "npx serve ."
+  },
   "dependencies": {
     "googleapis": "^171.4.0"
   }

@@ -2,11 +2,21 @@
 
 ## Run locally
 
+**With quiz + PDF proxy (recommended for debug):**
+
+```bash
+npm run dev
+```
+
+Then open **http://localhost:3000**. This runs `server.js`, which serves the app and the **`/api/pdf`** proxy so the quiz can load Google Drive PDFs locally (same behavior as on Vercel). Requires Node 18+ (for `fetch`).
+
+**Static only (no API proxy):**
+
 ```bash
 npx --yes serve .
 ```
 
-Then open **http://localhost:3000** (daily plan – default page).
+Then open **http://localhost:3000**. The quiz will not load Drive PDFs (CORS); use `npm run dev` to test the quiz.
 
 ## Where files load from
 

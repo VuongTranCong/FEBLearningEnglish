@@ -14,7 +14,6 @@ function renderDay(dayIndex) {
   document.getElementById('kid-guide-text').textContent = getKidGuide(day.monthId, day.dayInMonth);
 
   const videosEl = document.getElementById('day-videos');
-  const songsEl = document.getElementById('day-songs');
   const flashcardsEl = document.getElementById('day-flashcards');
   const activityEl = document.getElementById('day-activity');
   const gamesEl = document.getElementById('day-games');
@@ -34,23 +33,6 @@ function renderDay(dayIndex) {
     });
   } else {
     videosEl.innerHTML = '<p class="empty-msg">Hôm nay không có video. Thử làm hoạt động hoặc xem thẻ từ!</p>';
-  }
-
-  songsEl.innerHTML = '';
-  if (day.songs && day.songs.length) {
-    day.songs.forEach(s => {
-      const src = getMediaUrl(basePath, s);
-      const div = document.createElement('div');
-      div.className = 'audio-card';
-      if (isDrivePreviewUrl(src)) {
-        div.innerHTML = `<div class="audio-icon">&#9835;</div><div class="audio-info"><h3>${cleanName(s)}</h3><iframe src="${src}" class="drive-preview drive-preview-audio" title="${cleanName(s)}"></iframe></div>`;
-      } else {
-        div.innerHTML = `<div class="audio-icon">&#9835;</div><div class="audio-info"><h3>${cleanName(s)}</h3><audio controls preload="none" src="${src}"></audio></div>`;
-      }
-      songsEl.appendChild(div);
-    });
-  } else {
-    songsEl.innerHTML = '<p class="empty-msg">Hôm nay không có bài hát.</p>';
   }
 
   flashcardsEl.innerHTML = '';
