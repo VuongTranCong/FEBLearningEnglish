@@ -1,5 +1,5 @@
 /**
- * Quiz: load the day's flashcard PDF(s). Each page has 2 cards (left + right half); show in random order.
+ * Quiz: load the day's flashcard PDF(s), one page = one card; show pages in random order.
  * Depends: pdfjsLib (PDF.js), DAILY_PLAN, getBaseForMonth, getPdfDownloadUrl.
  */
 (function () {
@@ -8,6 +8,7 @@
   var position = 0;
   var loading = false;
   var renderId = 0;
+  var savedScrollY = null;
 
   if (typeof pdfjsLib !== 'undefined') {
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
@@ -57,28 +58,26 @@
     var thisRenderId = ++renderId;
     container.innerHTML = '';
     var viewport = card.viewport;
-    var half = card.half !== undefined ? card.half : 0;
-    var w = viewport.width;
-    var h = viewport.height;
-    var halfW = w / 2;
-    var offscreen = document.createElement('canvas');
-    offscreen.width = w;
-    offscreen.height = h;
-    var ctxOff = offscreen.getContext('2d');
+    var canvas = document.createElement('canvas');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    var ctx = canvas.getContext('2d');
     card.page.render({
-      canvasContext: ctxOff,
+      canvasContext: ctx,
       viewport: viewport
     }).promise.then(function () {
       if (thisRenderId !== renderId) return;
+      var scrollY = savedScrollY !== null ? savedScrollY : window.scrollY;
+      savedScrollY = null;
       container.innerHTML = '';
-      var canvas = document.createElement('canvas');
-      canvas.width = halfW;
-      canvas.height = h;
-      var ctx = canvas.getContext('2d');
-      var sx = half === 0 ? 0 : halfW;
-      ctx.drawImage(offscreen, sx, 0, halfW, h, 0, 0, halfW, h);
       container.appendChild(canvas);
-      if (typeof onDone === 'function') onDone();
+      requestAnimationFrame(function () {
+        window.scrollTo(0, scrollY);
+        requestAnimationFrame(function () {
+          window.scrollTo(0, scrollY);
+          if (typeof onDone === 'function') onDone();
+        });
+      });
     }).catch(function () {
       if (thisRenderId !== renderId) return;
       if (typeof onDone === 'function') onDone();
@@ -126,18 +125,11 @@
             pagePromises.push(
               pdf.getPage(p).then(function (page) {
                 var viewport = page.getViewport({ scale: scale });
-                return [
-                  { page: page, viewport: viewport, half: 0 },
-                  { page: page, viewport: viewport, half: 1 }
-                ];
+                return { page: page, viewport: viewport };
               })
             );
           }
-          return Promise.all(pagePromises).then(function (pages) {
-            var flat = [];
-            pages.forEach(function (pair) { flat.push(pair[0], pair[1]); });
-            return flat;
-          });
+          return Promise.all(pagePromises);
         })
         .catch(function (err) {
           console.warn('Quiz: could not load PDF', url, err);
@@ -158,15 +150,21 @@
     });
   }
 
-  function nextCard() {
+  function nextCard(ev) {
     if (cards.length === 0) return;
+    savedScrollY = window.scrollY;
+    if (ev && ev.target) ev.target.blur();
+    requestAnimationFrame(function () { window.scrollTo(0, savedScrollY); });
     position = (position + 1) % cards.length;
     if (position === 0) cards = shuffle(cards);
     showCard(false);
   }
 
-  function reshuffle() {
+  function reshuffle(ev) {
     if (cards.length === 0) return;
+    savedScrollY = window.scrollY;
+    if (ev && ev.target) ev.target.blur();
+    requestAnimationFrame(function () { window.scrollTo(0, savedScrollY); });
     cards = shuffle(cards);
     position = 0;
     showCard(false);
@@ -193,8 +191,8 @@
       '  </div>',
       '</div>'
     ].join('');
-    document.getElementById('quiz-btn-next').addEventListener('click', nextCard);
-    document.getElementById('quiz-btn-shuffle').addEventListener('click', reshuffle);
+    document.getElementById('quiz-btn-next').addEventListener('click', function (e) { nextCard(e); });
+    document.getElementById('quiz-btn-shuffle').addEventListener('click', function (e) { reshuffle(e); });
   }
 
   function updateDay(dayIndex) {

@@ -71,7 +71,7 @@ header p { opacity: 0.9; font-size: 0.95rem; }
   color: #047857;
 }
 
-.container { width: 80%; max-width: 100%; margin: 0; padding: 1.5rem; box-sizing: border-box; }
+.container { width: 100%; max-width: 100%; margin: 0; padding: 1.5rem; box-sizing: border-box; }
 
 .day-badge {
   display: inline-block;
