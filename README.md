@@ -32,3 +32,13 @@ Edit **`daily/js/auth-config.js`**:
 - **Change password**: set `users: [{ username: 'youruser', password: 'yourpass' }]`.
 
 Default is one user `admin` / `123`. Login is session-based (logout or close tab to sign out). This is client-side only—for light access control, not strong security.
+
+## Analytics (Vercel)
+
+The app includes the [Vercel Web Analytics](https://vercel.com/docs/analytics) script. To start counting visitors and page views:
+
+1. In the [Vercel dashboard](https://vercel.com/dashboard), open your project.
+2. Go to **Analytics** in the sidebar and click **Enable**.
+3. Deploy (or redeploy) the project. After deployment, the script at `/_vercel/insights/script.js` will be served and page views will be recorded.
+
+Data appears in the project’s Analytics tab after visits. Content blockers may prevent some events from being sent.
