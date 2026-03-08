@@ -1,5 +1,5 @@
 /**
- * Quiz: load the day's flashcard PDF(s), break into one card per page, show in random order.
+ * Quiz: load the day's flashcard PDF(s). Each page has 2 cards (left + right half); show in random order.
  * Depends: pdfjsLib (PDF.js), DAILY_PLAN, getBaseForMonth, getPdfDownloadUrl.
  */
 (function () {
@@ -52,13 +52,26 @@
     var container = wrap.querySelector('.quiz-card-canvas-wrap');
     if (!container) return;
     container.innerHTML = '';
-    var canvas = document.createElement('canvas');
-    container.appendChild(canvas);
+    var viewport = card.viewport;
+    var half = card.half !== undefined ? card.half : 0;
+    var w = viewport.width;
+    var h = viewport.height;
+    var halfW = w / 2;
+    var offscreen = document.createElement('canvas');
+    offscreen.width = w;
+    offscreen.height = h;
+    var ctxOff = offscreen.getContext('2d');
     card.page.render({
-      canvasContext: canvas.getContext('2d'),
-      viewport: card.viewport
+      canvasContext: ctxOff,
+      viewport: viewport
     }).promise.then(function () {
-      card.page.cleanup();
+      var canvas = document.createElement('canvas');
+      canvas.width = halfW;
+      canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      var sx = half === 0 ? 0 : halfW;
+      ctx.drawImage(offscreen, sx, 0, halfW, h, 0, 0, halfW, h);
+      container.appendChild(canvas);
     }).catch(function () {});
   }
 
@@ -102,11 +115,18 @@
             pagePromises.push(
               pdf.getPage(p).then(function (page) {
                 var viewport = page.getViewport({ scale: scale });
-                return { page: page, viewport: viewport };
+                return [
+                  { page: page, viewport: viewport, half: 0 },
+                  { page: page, viewport: viewport, half: 1 }
+                ];
               })
             );
           }
-          return Promise.all(pagePromises);
+          return Promise.all(pagePromises).then(function (pages) {
+            var flat = [];
+            pages.forEach(function (pair) { flat.push(pair[0], pair[1]); });
+            return flat;
+          });
         })
         .catch(function (err) {
           console.warn('Quiz: could not load PDF', url, err);
