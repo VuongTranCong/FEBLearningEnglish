@@ -5,7 +5,6 @@
 (function () {
   var currentDayIndex = 0;
   var cards = [];
-  var position = 0;
   var loading = false;
   var renderId = 0;
   var savedScrollY = null;
@@ -87,9 +86,10 @@
   function showCard(isInitial) {
     var wrap = document.getElementById('quiz-wrap');
     if (!wrap || cards.length === 0) return;
-    var card = cards[position];
+    var idx = Math.floor(Math.random() * cards.length);
+    var card = cards[idx];
     var hintEl = wrap.querySelector('.quiz-hint');
-    if (hintEl) hintEl.textContent = (position + 1) + ' / ' + cards.length;
+    if (hintEl) hintEl.textContent = (idx + 1) + ' / ' + cards.length;
     var onDone = isInitial ? function () { setState(wrap, 'card'); } : null;
     renderPage(wrap, card, onDone);
   }
@@ -105,7 +105,6 @@
     wrap.classList.remove('no-words');
     setState(wrap, 'loading');
     cards = [];
-    position = 0;
     loading = true;
 
     var pdfjsLib = window.pdfjsLib;
@@ -155,8 +154,6 @@
     savedScrollY = window.scrollY;
     if (ev && ev.target) ev.target.blur();
     requestAnimationFrame(function () { window.scrollTo(0, savedScrollY); });
-    position = (position + 1) % cards.length;
-    if (position === 0) cards = shuffle(cards);
     showCard(false);
   }
 
@@ -165,8 +162,6 @@
     savedScrollY = window.scrollY;
     if (ev && ev.target) ev.target.blur();
     requestAnimationFrame(function () { window.scrollTo(0, savedScrollY); });
-    cards = shuffle(cards);
-    position = 0;
     showCard(false);
   }
 
